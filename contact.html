@@ -1,0 +1,47 @@
+{% extends 'namik/base.html' %}
+{% load static %}
+{% block content %}
+<head>
+  <title>Əlaqə</title>
+  <style>
+    body{
+      height: 50%;
+    }
+  </style>
+</head>
+
+    <section class="contact">
+        <h1 class="heading">contact <span>us</span></h1>
+        <div class="row">
+            <iframe class="map" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d759.9333922854747!2d49.816524048132564!3d40.37043164809927!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40307d459ee769e5%3A0x6950cf062f1b20c2!2zQXZ0b8WfIGTDtm7JmXI!5e0!3m2!1str!2saz!4v1712757737551!5m2!1str!2saz"  loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <form method="POST" >
+              {% csrf_token %}
+            
+        {% if error %}
+            <p style="color:red;">{{ error }}</p>
+        {% endif %}
+            <center>
+            <label for="Adi">İstifadəçi adı</label>
+            <input type="text" name="Adi" id="Adi" placeholder="Meselen:Namik">
+
+    <br><br> 
+
+    <label for="sifre">Sifre:</label>
+    <input type="password" name="sifre" id="sifre" placeholder="******" maxlength="8">
+
+    <br><br>
+
+    <label for="epost">E-post:</label>
+    <input type="email" name="epost" id="epost" placeholder="ahmetmuhsin@gmail.com" autocapitalize="off" style="text-transform: lowercase;">
+
+    <br><br>
+
+    <input type="submit" class="btn" value="Login">
+    
+          </form>
+    <p>Hesabınız yoxdursa</p>
+    <a href="{% url 'register' %}" class="btn">Qeydiyyatdan keçin.</a>
+        </div> 
+        </div>
+    </section>
+{% endblock %}

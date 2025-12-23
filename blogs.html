@@ -1,0 +1,33 @@
+{% extends 'namik/base.html' %}
+{% load static %}
+{% block content %}
+<head>
+    <title>Bloqlar</title>
+</head> 
+<section class="blogs">
+    <h1 class="heading">our <span>blog</span></h1>
+    <div class="box-container">
+        {% if posts %}
+            {% for post in posts %}
+                <div class="box">
+                    <div class="image">
+                        {% if post.image %}
+                            <img src="{% static post.image %}" alt="{{ post.title }}">
+                        {% else %}
+                            <img src="{% static 'namik/images/placeholder.png' %}" alt="{{ post.title }}">
+                        {% endif %}
+                    </div>
+                    <div class="content">
+                        <a href="{{ post.url }}" class="title">{{ post.title }}</a>
+                        <span>{{ post.author }} tərəfindən / {{ post.date }}</span>
+                        <p>{{ post.excerpt }}</p>
+                        <a href="{{ post.url }}" class="btn">ətraflı məlumat</a>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>Heç bir blog tapılmadı.</p>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

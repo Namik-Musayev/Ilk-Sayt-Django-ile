@@ -1,0 +1,38 @@
+{% extends 'namik/base.html' %}
+{% load static %}
+{% block content %}
+<head>
+    <title>Məhsullar</title>
+</head>
+<section class="product">
+    <h1 class="heading"><span>our</span> products</h1>
+    <div class="box-container">
+        {% if products %}
+            {% for p in products %}
+                <div class="box">
+                    <div class="box-head">
+                        <span class="title">{{ p.category }}</span>
+                        <a href="{{ p.url }}" class="name" style="font-size: 4rem;">{{ p.name }}</a>
+                    </div>
+                    <div class="image">
+                        <img src="{% static p.image %}" alt="{{ p.name }}">
+                    </div>
+                    <div class="box-bottom">
+                        <div class="info">
+                            <b class="price">{{ p.price }}</b>
+                            <span class="amount">{{ p.amount }}</span>
+                        </div>
+                        <div class="product-btn">
+                            <a href="{{ p.url }}">
+                                <i class="fas fa-plus" style="font-size: 3rem;"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>Heç bir məhsul tapılmadı.</p>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

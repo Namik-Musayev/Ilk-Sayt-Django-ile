@@ -1,0 +1,83 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'namik/css/style.css' %}">
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+</head>
+<body>
+     <header class="header">
+        {% if user.is_authenticated %}
+            <form method="post" action="{% url 'logout' %}" style="float: left; margin-right: 10px;">
+                {% csrf_token %}
+                <button type="submit" style="font-size: 2em; font-weight: bold; background: none; border: none; color: inherit; cursor: pointer;">Çıxış</button>
+            </form>
+        {% endif %}
+        <a href="{% url 'inde' %}" class="Ballaken">
+            <img src="{% static 'namik/images/X-Drake.jpg' %}" alt="" class="logo" style="border-radius: 100px">
+        </a>
+        <h1>{{ user.username }}</h1>
+        <nav class="navbar">
+            {% for item in nav_items %}
+                <a href="{% url item.url %}">{{ item.label }}</a>
+            {% endfor %}
+        </nav>
+    
+        <div class="buttons">
+            {% for btn in buttons %}
+                <button id="{{ btn.id }}">
+                    <i class="{{ btn.icon }}"></i>
+                </button>
+            {% endfor %}
+        </div>
+        <div class="search-form">
+          <input type="text" class="search-input" id="search-box" placeholder="Search Here">
+          <i class="fas fa-search"></i>
+        </div>
+         <div class="cart-items-container">
+          {% for item in cart_items %}
+            <div class="cart-item">
+              <i class="fas fa-times"></i>
+              <img src="{% static item.image %}" alt="{{ item.name }}">
+              <div class="content">
+                <h3>{{ item.name }}</h3>
+                <div class="price">{{ item.price }}</div>
+              </div>
+            </div>
+          {% endfor %}
+          <a href="#" class="btn">Indi yoxlayın</a>
+        </div>
+    </header>
+
+    {% block content %}
+    
+    {% endblock %}
+<section class="footer">
+    <div class="search">
+      <input type="text" class="search-input" placeholder="Search" />
+      <button class="btn btn-primary" style="color: white;">Search</button>
+    </div>
+    
+    <div class="share">
+      {% for link in social_links %}
+        <a href="{{ link.url }}" class="{{ link.icon }}"></a>
+      {% endfor %}
+    </div>
+
+    <div class="links">
+      {% for link in footer_links %}
+        <a href="{% url link.url %}">{{ link.label }}</a>
+      {% endfor %}
+    </div>
+
+    <div class="credit">
+      created by <span>Musayev Namik</span> and <span>Tərlan Qədməliyev</span> | all rigths reserved
+    </div>
+</section>
+  <script src="{% static 'namik/js/java.js' %}"></script>
+</body>
+</html>
